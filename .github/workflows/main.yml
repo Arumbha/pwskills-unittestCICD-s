@@ -1,29 +1,29 @@
-name:Python application Test
+name: Python application Test
 
 on:
   push:
-     branches: [main]
+    branches: [main]
   pull_request:
-     branches: [main]
-jobs:
-   test:
-     runs-on: ubuntu-latest  //container
-     steps:
-     - name: checkout code        //code change detect and download in content
-       uses: actions/checkout@v3
+    branches: [main]
 
-       steps:
-       -name: Setup python            //version setup and run and install python
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
         uses: actions/setup-python@v4
         with:
-           python-version:'3.10'
+          python-version: '3.10'
 
-      -name : install dependencies based on code
-       run:
-         pip insall pytest
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
 
-      -name : execute the test script
-       run:
-         python -m unittest tets_greeter.py
-
-         
+      - name: Execute the test script
+        run: |
+          python -m unittest test_greeter.py
